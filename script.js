@@ -1,5 +1,5 @@
 /**
- * Threadline Textiles - Interactive Script
+ * Threadline Textiles - Optimized High-Performance Script
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initCapabilitiesCounter();
     initTestimonialsCarousel();
-    initLeafletMap();
     initBackToTop();
 });
 
@@ -17,38 +16,38 @@ document.addEventListener('DOMContentLoaded', () => {
    ========================================================================== */
 function initHeaderScroll() {
     const header = document.getElementById('header');
-    
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 40) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
+    let ticking = false;
 
-    // Nav active link tracking on scroll
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                if (window.scrollY > 40) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // Active Section Observer
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.main-nav .nav-link');
 
-    window.addEventListener('scroll', () => {
-        let currentSection = '';
-        const scrollPosition = window.scrollY + 100;
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                currentSection = section.getAttribute('id');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                });
             }
         });
+    }, { rootMargin: '-30% 0px -60% 0px' });
 
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${currentSection}`) {
-                link.classList.add('active');
-            }
-        });
-    });
+    sections.forEach(section => observer.observe(section));
 }
 
 /* ==========================================================================
@@ -61,22 +60,17 @@ function initMobileDrawer() {
     const drawerLinks = document.querySelectorAll('.drawer-link, .drawer-btn');
 
     if (mobileToggle && mobileDrawer) {
-        mobileToggle.addEventListener('click', () => {
-            mobileDrawer.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        });
-
-        const closeDrawer = () => {
-            mobileDrawer.classList.remove('open');
-            document.body.style.overflow = '';
+        const toggleDrawer = (isOpen) => {
+            mobileDrawer.classList.toggle('open', isOpen);
+            mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            document.body.style.overflow = isOpen ? 'hidden' : '';
         };
 
-        if (drawerClose) {
-            drawerClose.addEventListener('click', closeDrawer);
-        }
+        mobileToggle.addEventListener('click', () => toggleDrawer(true));
+        if (drawerClose) drawerClose.addEventListener('click', () => toggleDrawer(false));
 
         drawerLinks.forEach(link => {
-            link.addEventListener('click', closeDrawer);
+            link.addEventListener('click', () => toggleDrawer(false));
         });
     }
 }
@@ -88,7 +82,7 @@ function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
-            if (targetId === '#' || targetId === 'javascript:void(0)') return;
+            if (targetId === '#' || targetId.startsWith('javascript:')) return;
 
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
@@ -121,10 +115,9 @@ function initCapabilitiesCounter() {
                     const target = parseInt(stat.getAttribute('data-target'), 10);
                     const suffix = stat.getAttribute('data-suffix') || '+';
                     let count = 0;
-                    const duration = 1600; // ms
-                    const stepTime = 25;
-                    const totalSteps = duration / stepTime;
-                    const increment = target / totalSteps;
+                    const duration = 1400; // ms
+                    const stepTime = 20;
+                    const increment = target / (duration / stepTime);
 
                     const timer = setInterval(() => {
                         count += increment;
@@ -137,7 +130,7 @@ function initCapabilitiesCounter() {
                 });
             }
         });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.25 });
 
     const capabilitiesSection = document.getElementById('capabilities');
     if (capabilitiesSection) {
@@ -154,16 +147,13 @@ function initTestimonialsCarousel() {
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            dots.forEach(d => d.classList.remove('active'));
-            dot.classList.add('active');
+            dots.forEach((d, i) => {
+                d.classList.toggle('active', i === index);
+                d.setAttribute('aria-selected', i === index ? 'true' : 'false');
+            });
 
-            // Visual feedback on mobile / desktop focus
             if (window.innerWidth <= 768) {
-                cards.forEach((card, cIndex) => {
-                    if (cIndex === index) {
-                        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }
-                });
+                cards[index]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             } else {
                 cards.forEach((card, cIndex) => {
                     if (cIndex === index) {
@@ -180,79 +170,13 @@ function initTestimonialsCarousel() {
 }
 
 /* ==========================================================================
-   6. Leaflet Interactive Map
-   ========================================================================== */
-function initLeafletMap() {
-    const mapElement = document.getElementById('interactiveMap');
-    if (!mapElement) return;
-
-    // Peenya Industrial Area, Bangalore Coordinates
-    const peenyaCoords = [13.0315, 77.5255];
-
-    try {
-        const map = L.map('interactiveMap', {
-            center: peenyaCoords,
-            zoom: 14,
-            zoomControl: true,
-            scrollWheelZoom: false
-        });
-
-        // Crisp Tile Layer with clean styling
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://carto.com/">CARTO</a>, OpenStreetMap',
-            maxZoom: 19
-        }).addTo(map);
-
-        // Custom High-Res Pin Icon
-        const customIcon = L.divIcon({
-            className: 'custom-leaflet-marker',
-            html: `
-                <div style="
-                    background-color: #0d5be1;
-                    width: 38px;
-                    height: 38px;
-                    border-radius: 50% 50% 50% 0;
-                    transform: rotate(-45deg);
-                    border: 3px solid #ffffff;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                ">
-                    <i class="fa-solid fa-industry" style="
-                        transform: rotate(45deg);
-                        color: #ffffff;
-                        font-size: 14px;
-                    "></i>
-                </div>
-            `,
-            iconSize: [38, 38],
-            iconAnchor: [19, 38]
-        });
-
-        const marker = L.marker(peenyaCoords, { icon: customIcon }).addTo(map);
-        marker.bindPopup(`
-            <div style="font-family: 'Plus Jakarta Sans', sans-serif; padding: 4px;">
-                <strong style="color: #07152b; font-size: 13px;">Threadline Textiles Plant</strong><br>
-                <span style="color: #64748b; font-size: 11px;">KIADB Industrial Area, Peenya, Bangalore</span>
-            </div>
-        `);
-    } catch (e) {
-        console.warn('Leaflet map initialization skipped or fallback active.', e);
-        mapElement.innerHTML = `
-            <img src="assets/images/map_preview.jpg" alt="Bangalore Location Map" style="width:100%;height:100%;object-fit:cover;">
-        `;
-    }
-}
-
-/* ==========================================================================
-   7. Fabric Modal & Specification Data
+   6. Fabric Modal & Specification Data
    ========================================================================== */
 const fabricCatalogData = {
     shirting: {
         title: "Shirting Fabrics Collection",
         badge: "Menswear Shirting",
-        img: "assets/images/fabric_shirting.jpg",
+        img: "assets/images/fabric_shirting.webp",
         description: "Our premium shirting fabrics are engineered with precision weaves offering unparalleled hand-feel, breathability, and wrinkle recovery for bespoke formal and casual shirting brands.",
         specs: [
             { label: "Weave Types", val: "Poplin, Oxford, Fine Twill, Dobby, End-on-End, Linen Blend" },
@@ -265,7 +189,7 @@ const fabricCatalogData = {
     suiting: {
         title: "Suiting Fabrics Collection",
         badge: "Menswear Suiting",
-        img: "assets/images/fabric_suiting.jpg",
+        img: "assets/images/fabric_suiting.webp",
         description: "Engineered for jackets, trousers, and corporate executive apparel. High dimensional stability, wrinkle resistance, and drape excellence.",
         specs: [
             { label: "Composition", val: "Poly-Viscose (PV), Poly-Wool blends, 100% Fine Wool" },
@@ -278,7 +202,7 @@ const fabricCatalogData = {
     denim: {
         title: "Denim Fabrics Collection",
         badge: "Authentic & Stretch Denim",
-        img: "assets/images/fabric_denim.jpg",
+        img: "assets/images/fabric_denim.webp",
         description: "From rugged classic vintage denims to high-performance hyper-stretch blends, crafted for commercial jeanswear brands and international labels.",
         specs: [
             { label: "Weight Range", val: "8.5 oz to 14.5 oz" },
@@ -291,7 +215,7 @@ const fabricCatalogData = {
     knitted: {
         title: "Knitted Fabrics Collection",
         badge: "Circular & Flat Knits",
-        img: "assets/images/fabric_knitted.jpg",
+        img: "assets/images/fabric_knitted.webp",
         description: "High-grade circular knit fabrics for t-shirts, polos, athleisure, and premium loungewear with superior color fastness and shape retention.",
         specs: [
             { label: "Structure", val: "Single Jersey, Pique, 1x1 / 2x2 Rib, French Terry, Fleece" },
@@ -304,7 +228,7 @@ const fabricCatalogData = {
     uniform: {
         title: "Uniform & Institutional Fabrics",
         badge: "Heavy Duty & Workwear",
-        img: "assets/images/fabric_uniform.jpg",
+        img: "assets/images/fabric_uniform.webp",
         description: "Durable, high-tensile strength fabrics designed for corporate uniforms, aviation, healthcare, hospitality, security, and industrial safety workwear.",
         specs: [
             { label: "Weaves", val: "Heavy Twill, Gabardine, Ripstop, Drill, Plain Weave" },
@@ -325,19 +249,19 @@ window.openFabricModal = function(category) {
 
     let specsHtml = data.specs.map(s => `
         <div style="display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem;">
-            <span style="color: #64748b; font-weight: 600;">${s.label}:</span>
-            <span style="color: #0b1a30; font-weight: 700; text-align: right; max-width: 60%;">${s.val}</span>
+            <span style="color: #475569; font-weight: 700;">${s.label}:</span>
+            <span style="color: #0b1a30; font-weight: 800; text-align: right; max-width: 60%;">${s.val}</span>
         </div>
     `).join('');
 
     document.getElementById('modalBody').innerHTML = `
-        <div style="margin-bottom: 16px; border-radius: 8px; overflow: hidden; height: 180px;">
-            <img src="${data.img}" alt="${data.title}" style="width: 100%; height: 100%; object-fit: cover;">
+        <div style="margin-bottom: 16px; border-radius: 8px; overflow: hidden; height: 180px; background-color: #e2e8f0;">
+            <img src="${data.img}" alt="${data.title}" width="570" height="180" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
-        <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 18px;">
+        <p style="font-size: 0.9rem; color: #334155; line-height: 1.6; margin-bottom: 18px;">
             ${data.description}
         </p>
-        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;">
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px 18px;">
             <h4 style="font-size: 0.82rem; font-weight: 800; color: #0b1a30; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 8px;">
                 Fabric Specifications
             </h4>
@@ -365,14 +289,14 @@ window.requestFabricQuote = function() {
 };
 
 /* ==========================================================================
-   8. Form Submission & Toast Feedback
+   7. Form Submission & Toast Feedback
    ========================================================================== */
 window.handleFormSubmit = function(e) {
     e.preventDefault();
     const submitBtn = e.target.querySelector('button[type="submit"]');
     const originalContent = submitBtn.innerHTML;
 
-    submitBtn.innerHTML = `<span>Sending...</span> <i class="fa-solid fa-spinner fa-spin"></i>`;
+    submitBtn.innerHTML = `<span>Sending...</span>`;
     submitBtn.disabled = true;
 
     setTimeout(() => {
@@ -380,7 +304,7 @@ window.handleFormSubmit = function(e) {
         submitBtn.disabled = false;
         e.target.reset();
         showToast("Thank you! Your quote request has been sent. Our team will contact you shortly.");
-    }, 1000);
+    }, 600);
 };
 
 window.handleNewsletterSubmit = function(e) {
@@ -404,7 +328,7 @@ function showToast(message) {
 }
 
 /* ==========================================================================
-   9. Back to Top Button
+   8. Back to Top Button
    ========================================================================== */
 function initBackToTop() {
     const backToTopBtn = document.getElementById('backToTop');
