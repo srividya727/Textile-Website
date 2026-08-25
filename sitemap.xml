@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <url>
+        <loc>https://srividya727.github.io/Textile-Website/</loc>
+        <lastmod>2026-08-25</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/hero_fabric.webp</image:loc>
+            <image:title>Threadline Textiles Premium Menswear Fabrics</image:title>
+            <image:caption>B2B Textile Manufacturer and Wholesale Fabric Supplier in Bangalore</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/about_factory.webp</image:loc>
+            <image:title>Threadline Textiles Automated Manufacturing Mill Bangalore</image:title>
+            <image:caption>Modern textile spinning, weaving and processing facility in Peenya Industrial Area, Bangalore</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/fabric_shirting.webp</image:loc>
+            <image:title>Premium Shirting Fabrics</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/fabric_suiting.webp</image:loc>
+            <image:title>Premium Suiting Fabrics</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/fabric_denim.webp</image:loc>
+            <image:title>Authentic Denim Fabrics</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/fabric_knitted.webp</image:loc>
+            <image:title>Knitted Fabrics Collection</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/fabric_uniform.webp</image:loc>
+            <image:title>High Durability Uniform Fabrics</image:title>
+        </image:image>
+    </url>
+</urlset>

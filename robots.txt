@@ -1,0 +1,6 @@
+# robots.txt for Threadline Textiles (https://srividya727.github.io/Textile-Website/)
+User-agent: *
+Allow: /
+
+# Sitemap URL
+Sitemap: https://srividya727.github.io/Textile-Website/sitemap.xml
