@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+Thumbs.db
+extract.js
+package-lock.json
+package.json
