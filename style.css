@@ -2080,6 +2080,7 @@ button {
     }
 }
 
+@media (max-width: 980px) {
     .why-us-hd-wrapper {
         grid-template-columns: 1fr;
         padding: 24px 16px;
@@ -2110,7 +2111,7 @@ button {
     }
 
     .footer-columns-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 36px 24px;
     }
 
