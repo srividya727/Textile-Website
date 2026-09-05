@@ -149,6 +149,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ---------------- Mobile Navigation Drawer Toggle ----------------
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('mobile-active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking any nav link
+        navMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('mobile-active');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+    }
+
     // ---------------- Back To Top Button ----------------
     const backToTopBtn = document.getElementById('backToTopBtn');
     if (backToTopBtn) {
