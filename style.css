@@ -555,43 +555,161 @@ button {
 }
 
 /* ==========================================================================
-   HERO BANNER EXACT SECTION (FULL-WIDTH EDGE-TO-EDGE)
+   HERO SECTION (REAL HIGH-DEFINITION HTML TYPOGRAPHY & HD VISUAL)
    ========================================================================== */
-.hero-exact-section {
-    width: 100%;
+.hero-section {
+    background: linear-gradient(135deg, #faf4ee 0%, #fdf9f5 45%, #f7ede5 100%);
+    position: relative;
+    overflow: hidden;
     padding: 0;
-    margin: 0;
-    background-color: #581128;
+    width: 100%;
+}
+
+.hero-real-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    align-items: stretch;
+    min-height: 480px;
+    position: relative;
+}
+
+.hero-left-content {
+    padding: 48px 40px 48px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Brand Eyebrow */
+.hero-brand-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.hero-eyebrow-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(139, 24, 66, 0.2);
+}
+
+.hero-eyebrow-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+.eyebrow-name {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    color: #1a1618;
+}
+
+.eyebrow-sub {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--color-primary);
+    text-transform: uppercase;
+}
+
+.hero-tag {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 2.2px;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: 3.6rem;
+    line-height: 1.06;
+    font-weight: 700;
+    color: #1a1618;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.hero-title-accent {
+    color: var(--color-primary);
+    font-weight: 700;
+    display: block;
+}
+
+.hero-title-underline {
+    width: 44px;
+    height: 2.5px;
+    background: var(--color-primary);
+    margin-bottom: 18px;
+    border-radius: 2px;
+}
+
+.hero-description {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: #5c4e47;
+    margin-bottom: 28px;
+    max-width: 520px;
+}
+
+.hero-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 4px;
+}
+
+.btn-hero-cta {
+    background: linear-gradient(135deg, #7a1236 0%, #9c1c49 100%);
+    color: #ffffff;
+    padding: 13px 30px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    box-shadow: 0 8px 24px rgba(122, 18, 54, 0.35);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all var(--transition-smooth);
+    text-decoration: none;
+}
+
+.btn-hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(122, 18, 54, 0.45);
+    background: linear-gradient(135deg, #640f2c 0%, #88173e 100%);
+    color: #ffffff;
+}
+
+/* Right Visual */
+.hero-right-visual-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
     overflow: hidden;
     position: relative;
-    line-height: 0;
 }
 
-.hero-banner-container {
+.hero-right-img {
     width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-    line-height: 0;
-}
-
-.hero-banner-link {
-    display: block;
-    width: 100%;
-    text-decoration: none;
-    line-height: 0;
-}
-
-.hero-banner-img {
-    width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    min-height: 440px;
     object-fit: cover;
-    transition: opacity var(--transition-smooth);
-}
-
-.hero-banner-link:hover .hero-banner-img {
-    opacity: 0.97;
+    object-position: center right;
+    display: block;
 }
 
 /* Bottom Stats Ribbon */
@@ -618,39 +736,48 @@ button {
 .ribbon-stat-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .ribbon-icon {
     font-size: 1.35rem;
+    flex-shrink: 0;
 }
 
-.ribbon-stat-item strong {
+.ribbon-stat-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+}
+
+.ribbon-stat-text strong {
     font-size: 0.95rem;
     font-weight: 800;
     color: #ffffff;
     display: block;
-    line-height: 1.1;
+    margin-bottom: 2px;
 }
 
-.ribbon-stat-item span {
-    font-size: 0.72rem;
+.ribbon-stat-text span {
+    font-size: 0.74rem;
     color: #e0d0c8;
+    display: block;
 }
 
 .ribbon-grow-wedge {
     background: #ffdce6;
     color: var(--color-primary);
-    padding: 6px 20px;
+    padding: 8px 22px;
     border-radius: 30px 10px 30px 10px;
     font-family: var(--font-calligraphy);
-    font-size: 1.4rem;
+    font-size: 1.45rem;
     line-height: 1;
     display: flex;
     align-items: center;
     gap: 6px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
     transform: rotate(-1deg);
+    flex-shrink: 0;
 }
 
 /* ==========================================================================
@@ -1905,6 +2032,45 @@ button {
 }
 
 @media (max-width: 980px) {
+    .hero-real-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-left-content {
+        padding: 40px 24px 20px 24px;
+        align-items: center;
+    }
+
+    .hero-brand-eyebrow {
+        justify-content: center;
+    }
+
+    .hero-tag {
+        align-self: center;
+    }
+
+    .hero-title {
+        font-size: 2.8rem;
+    }
+
+    .hero-title-underline {
+        margin: 0 auto 18px auto;
+    }
+
+    .hero-description {
+        max-width: 100%;
+    }
+
+    .hero-cta-group {
+        justify-content: center;
+    }
+
+    .hero-right-img {
+        min-height: 280px;
+        max-height: 380px;
+    }
+
     .footer-columns-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 36px 24px;
@@ -2083,6 +2249,34 @@ button {
 }
 
 @media (max-width: 480px) {
+    .hero-left-content {
+        padding: 30px 16px 16px 16px;
+    }
+
+    .hero-title {
+        font-size: 2.1rem;
+    }
+
+    .hero-description {
+        font-size: 0.92rem;
+    }
+
+    .btn-hero-cta {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .ribbon-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .ribbon-stat-item {
+        justify-content: center;
+    }
+
     .footer-trust-strip {
         display: grid;
         grid-template-columns: 1fr 1fr;
