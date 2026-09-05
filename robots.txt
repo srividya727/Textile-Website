@@ -1,4 +1,4 @@
-# robots.txt for Threadline Textiles (https://srividya727.github.io/Textile-Website/)
+# robots.txt for SS Collection (https://srividya727.github.io/Textile-Website/)
 User-agent: *
 Allow: /
 

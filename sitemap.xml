@@ -3,38 +3,18 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>https://srividya727.github.io/Textile-Website/</loc>
-        <lastmod>2026-08-25</lastmod>
-        <changefreq>weekly</changefreq>
+        <lastmod>2026-09-05</lastmod>
+        <changefreq>daily</changefreq>
         <priority>1.0</priority>
         <image:image>
-            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/hero_fabric.webp</image:loc>
-            <image:title>Threadline Textiles Premium Menswear Fabrics</image:title>
-            <image:caption>B2B Textile Manufacturer and Wholesale Fabric Supplier in Bangalore</image:caption>
+            <image:loc>https://srividya727.github.io/Textile-Website/assets/ss_final/hero_model.webp</image:loc>
+            <image:title>SS Collection Bangalore - Wholesale Women's Fashion Manufacturer</image:title>
+            <image:caption>Trendy Styles, Bigger Possibilities. Premium B2B Women's Wear Showcase</image:caption>
         </image:image>
         <image:image>
-            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/about_factory.webp</image:loc>
-            <image:title>Threadline Textiles Automated Manufacturing Mill Bangalore</image:title>
-            <image:caption>Modern textile spinning, weaving and processing facility in Peenya Industrial Area, Bangalore</image:caption>
-        </image:image>
-        <image:image>
-            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/fabric_shirting.webp</image:loc>
-            <image:title>Premium Shirting Fabrics</image:title>
-        </image:image>
-        <image:image>
-            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/fabric_suiting.webp</image:loc>
-            <image:title>Premium Suiting Fabrics</image:title>
-        </image:image>
-        <image:image>
-            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/fabric_denim.webp</image:loc>
-            <image:title>Authentic Denim Fabrics</image:title>
-        </image:image>
-        <image:image>
-            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/fabric_knitted.webp</image:loc>
-            <image:title>Knitted Fabrics Collection</image:title>
-        </image:image>
-        <image:image>
-            <image:loc>https://srividya727.github.io/Textile-Website/assets/images/fabric_uniform.webp</image:loc>
-            <image:title>High Durability Uniform Fabrics</image:title>
+            <image:loc>https://srividya727.github.io/Textile-Website/assets/ss_final/grow_together.webp</image:loc>
+            <image:title>SS Collection Boutique &amp; Retail Wholesale Consultation</image:title>
+            <image:caption>Your Fashion Business Deserves the Best</image:caption>
         </image:image>
     </url>
 </urlset>
